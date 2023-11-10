@@ -1,1 +1,2 @@
-# ooss-project1
+# Adrián Pazos Varela
+# Alejandro Ramírez Arias
