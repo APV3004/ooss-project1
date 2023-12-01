@@ -17,4 +17,6 @@ typedef struct {
     unsigned char Data[TAM_LINEA];
     } T_CACHE_LINE;
 
-    
+// Global variables
+int globaltime = 0;
+int numerrors = 0;
