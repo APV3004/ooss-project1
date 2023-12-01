@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #define TAM_LINEA 16
-#define NUM_ROWS
-
+#define NUM_ROWS 8
+#define MEM_SIZE 4096
 
 
 
@@ -20,3 +20,13 @@ typedef struct {
 // Global variables
 int globaltime = 0;
 int numerrors = 0;
+
+// Function to initialize the cache
+void CleanCACHE(T_CACHE_LINE cache[NUM_ROWS]) {
+    for (int i = 0; i < NUM_ROWS; i++) {
+        cache[i].ETQ = 0xFF; // Initialize Label field to 0xFF
+        for (int j = 0; j < TAM_LINEA; j++) {
+            cache[i].Data[j] = 0x23; // Initialize data field to 0x23
+        }
+    }
+}
