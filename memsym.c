@@ -17,18 +17,4 @@ typedef struct {
     unsigned char Data[TAM_LINEA];
     } T_CACHE_LINE;
 
-
-
-char* leeLineaDinamicaFichero(FILE * f) {
-    char * linea;
-    char c = 0;
-    int count = 0;
     
-    while ((c = getc(f) != '\n' && !feof(f))) {
-        linea = (char*)realloc(linea, sizeof(char) * (count +1));
-        linea[count] = c;
-        count++;
-    }
-    linea[count] = '\0';
-    return linea;
-}
