@@ -35,7 +35,7 @@ void CleanCACHE(T_CACHE_LINE tbl[NUM_ROWS]) {
 
 void DumpCACHE(T_CACHE_LINE *tlb) {
     for (int i = 0; i < NUM_ROWS; i++) {
-        printf("Line %d: Label %X Data: ", i, tlb[i].ETQ);
+        printf("%d\t Data: %X ", i, tlb[i].ETQ);
         for (int j = TAM_LINEA - 1; j >= 0; j--) {
             printf("%02X ", tlb[i].Data[j]);
         }
