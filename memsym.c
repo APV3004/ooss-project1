@@ -31,3 +31,13 @@ void CleanCACHE(T_CACHE_LINE tbl[NUM_ROWS]) {
         }
     }
 }
+
+void DumpCACHE(T_CACHE_LINE cache[NUM_ROWS]) {
+    for (int i = 0; i < NUM_ROWS; i++) {
+        printf("Line %d: Label %X Data: ", i, cache[i].ETQ);
+        for (int j = TAM_LINEA - 1; j >= 0; j--) {
+            printf("%02X ", cache[i].Data[j]);
+        }
+        printf("\n");
+    }
+}
