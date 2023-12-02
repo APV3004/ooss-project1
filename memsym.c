@@ -4,6 +4,7 @@
 #define TAM_LINEA 16
 #define NUM_ROWS 8
 #define MEM_SIZE 4096
+#define MAX_TEXT_LEN 100
 
 typedef struct {
     unsigned char ETQ;
@@ -67,5 +68,35 @@ void TreatFailureMiss(T_CACHE_LINE *tbl, char *MRAM, int LABEL, int line, int bl
 
     for (int i = 0; i < TAM_LINEA; i++) {
         tbl[line].Data[i] = MRAM[startAddress + i];
+    }
+}
+
+int main() {
+
+    T_CACHE_LINE cache[NUM_ROWS];
+    unsigned char Simul_RAM[MEM_SIZE];
+    char text[MAX_TEXT_LEN];
+    unsigned int address;
+
+    FILE *ram_file = fopen("CONTENTS_RAM.bin", "rb");
+    FILE *addr_file = fopen("memory_accesses.txt", "r");
+
+    // Check if files exist
+    if (ram_file == NULL || addr_file == NULL) {
+        printf("ERROR. File could not be opened");
+        return -1;
+    }
+
+      // Read RAM contents
+    fread(Simul_RAM, sizeof(unsigned char), MEM_SIZE, ram_file);
+    fclose(ram_file);
+
+    // Initialize cache
+    CleanCACHE(cache);
+
+    // Read addresses from the file
+    while (fscanf(addr_file, "%x", &address) == 1) {
+        int LABEL, word, line, block;
+        ParseAddress(address, &LABEL, &word, &line, &block);
     }
 }
