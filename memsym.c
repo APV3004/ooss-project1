@@ -77,6 +77,7 @@ int main() {
     unsigned char Simul_RAM[MEM_SIZE];
     char text[MAX_TEXT_LEN];
     unsigned int address;
+    int total_accesses = 0;
 
     FILE *ram_file = fopen("CONTENTS_RAM.bin", "rb");
     FILE *addr_file = fopen("memory_accesses.txt", "r");
@@ -114,7 +115,26 @@ int main() {
         // Display cache contents
         DumpCACHE(cache);
 
+        // Increase the number of accesses by 1
+        total_accesses++;
+
         // Sleep for 1 second
         sleep(1);
     }
-    }
+
+    // Print the statistics
+    printf("Total accesses: %d\n", total_accesses);
+    printf("Number of misses: %d\n", numerrors);
+    printf("Average access time: %.2f\n", (float)globaltime / total_accesses);
+
+    // Print text read character by character from the cache
+    printf("Text read from cache: %s\n", text);
+
+    // Dump cache contents into a binary file
+    FILE *cache_file = fopen("CONTENTS_CACHE.bin", "wb");
+    fwrite(cache, sizeof(T_CACHE_LINE), NUM_ROWS, cache_file);
+    fclose(cache_file);
+
+    return 0;
+
+}
