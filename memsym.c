@@ -11,14 +11,6 @@ typedef struct {
     unsigned char Data[TAM_LINEA];
     } T_CACHE_LINE;
 
-
-void CleanCACHE(T_CACHE_LINE tbl[NUM_ROWS]);
-void DumpCACHE(T_CACHE_LINE *tbl);
-void ParseAdress(unsigned int addr, int *LABEL, int*word, int *line, int *block);
-void TreatFailureMiss(T_CACHE_LINE *tbl, char *MRAM, int LABEL,int line, int block);
-
-
-
 // Global variables
 int globaltime = 0;
 int numerrors = 0;
@@ -53,10 +45,10 @@ void ParseAddress(unsigned int addr, int *LABEL, int *word, int *line, int *bloc
 }
 
 void TreatFailureMiss(T_CACHE_LINE *tbl, char *MRAM, int LABEL, int line, int block) {
-    int numfaults = 0;
-    numfaults++;
+    
+    numerrors++;
 
-    printf("T: %d, CACHE Fault %d, ADDR %04X Label %X line %02X word %02X block %02X\n", globaltime, numfaults, block, LABEL, line, block, block * TAM_LINEA);
+    printf("T: %d, CACHE Fault %d, ADDR %04X Label %X line %02X word %02X block %02X\n", globaltime, numerrors, block, LABEL, line, block, block * TAM_LINEA);
 
     // Increment global time
     globaltime += 20;
@@ -79,11 +71,11 @@ int main() {
     unsigned int address;
     int total_accesses = 0;
 
-    FILE *ram_file = fopen("CONTENTS_RAM.bin", "rb");
-    FILE *addr_file = fopen("accessos_memoria.txt", "r");
+    FILE *ram_file = fopen("/Users/adrip/OneDrive - U-tad/SSOO/ooss-project1/CONTENTS_RAM.bin", "rb");
+    FILE *addr_file = fopen("/Users/adrip/OneDrive - U-tad/SSOO/ooss-project1/accesos_memoria.txt", "r");
 
     // Check if files exist
-    if (ram_file == NULL || addr_file == NULL) {
+    if (addr_file == NULL) {
         printf("ERROR. File could not be opened");
         return -1;
     }
