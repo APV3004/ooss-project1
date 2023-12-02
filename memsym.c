@@ -80,7 +80,7 @@ int main() {
     int total_accesses = 0;
 
     FILE *ram_file = fopen("CONTENTS_RAM.bin", "rb");
-    FILE *addr_file = fopen("memory_accesses.txt", "r");
+    FILE *addr_file = fopen("accessos_memoria.txt", "r");
 
     // Check if files exist
     if (ram_file == NULL || addr_file == NULL) {
