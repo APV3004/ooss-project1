@@ -120,8 +120,11 @@ int main() {
     printf("Average access time: %.2f\n", (float)globaltime / total_accesses);
 
     // Print text read character by character from the cache
-    printf("Text read from cache: %s\n", text);
-
+    printf("Text read from cache: ");
+    for(int i = 0; i < total_accesses; i++) {
+        printf("%c", text[i]);
+    }
+    
     // Dump cache contents into a binary file
     FILE *cache_file = fopen("CONTENTS_CACHE.bin", "wb");
     fwrite(cache, sizeof(T_CACHE_LINE), NUM_ROWS, cache_file);
