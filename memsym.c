@@ -98,5 +98,23 @@ int main() {
     while (fscanf(addr_file, "%x", &address) == 1) {
         int LABEL, word, line, block;
         ParseAddress(address, &LABEL, &word, &line, &block);
+                // Check if the address label equals to Label of the cache line
+        if (cache[line].ETQ != LABEL) {
+            TreatFailureMiss(cache, Simul_RAM, LABEL, line, block);
+        } else {
+            // Cache hit
+            printf("T: %d, CACHE hit, ADDR %04X Label %X line %02X word %02X DATA %02X\n",
+                   globaltime, address, LABEL, line, word, cache[line].Data[word]);
+        }
+
+        // Read characters and add to the text array
+        char c = cache[line].Data[word];
+        text[word] = c;
+
+        // Display cache contents
+        DumpCACHE(cache);
+
+        // Sleep for 1 second
+        sleep(1);
     }
-}
+    }
