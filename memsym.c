@@ -41,3 +41,12 @@ void DumpCACHE(T_CACHE_LINE cache[NUM_ROWS]) {
         printf("\n");
     }
 }
+
+
+// Function to parse memory address
+void ParseAddress(unsigned int addr, int *LABEL, int *word, int *line, int *block) {
+    *word = addr & 0xF;
+    *line = (addr >> 4) & 0x7;
+    *LABEL = (addr >> 7) & 0x1F;
+    *block = addr >> 4; // each block is 16 bytes
+}
