@@ -50,3 +50,22 @@ void ParseAddress(unsigned int addr, int *LABEL, int *word, int *line, int *bloc
     *LABEL = (addr >> 7) & 0x1F;
     *block = addr >> 4; // each block is 16 bytes
 }
+
+void TreatFailureMiss(T_CACHE_LINE *tbl, char *MRAM, int LABEL, int line, int block) {
+    int numfaults = 0;
+    numfaults++;
+
+    printf("T: %d, CACHE Fault %d, ADDR %04X Label %X line %02X word %02X block %02X\n", globaltime, numfaults, block, LABEL, line, block, block * TAM_LINEA);
+
+    // Increment global time
+    globaltime += 20;
+
+    // Copy the block from RAM to cache
+    printf("Loading Block %02X into Line %02X\n", block, line);
+    int startAddress = block * TAM_LINEA;
+    tbl[line].ETQ = LABEL;
+
+    for (int i = 0; i < TAM_LINEA; i++) {
+        tbl[line].Data[i] = MRAM[startAddress + i];
+    }
+}
